@@ -6,8 +6,12 @@ interface ButtonProps {
 	type?: 'submit' | 'button';
 }
 
-export const Button = ({ onClick, children, type }: ButtonProps) => (
-	<button type={type} className={button} onClick={onClick}>
-		{children ?? 'Click'}
-	</button>
-);
+export const Button = (props: ButtonProps) => {
+	const { children, ...propsToSpread } = props;
+
+	return (
+		<button className={button} {...propsToSpread}>
+			{children ?? 'Click'}
+		</button>
+	);
+};
