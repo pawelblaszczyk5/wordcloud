@@ -3,6 +3,7 @@ import { style } from '@vanilla-extract/css';
 
 export const heading = style({
 	fontSize: vars.fontSize.huge,
+	textAlign: 'center',
 });
 
 export const form = style({

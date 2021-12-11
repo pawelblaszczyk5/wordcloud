@@ -6,6 +6,6 @@ export const layout = style({
 	flexDirection: 'column',
 	justifyContent: 'center',
 	alignItems: 'center',
-	height: '100%',
+	minHeight: '100vh',
 	gap: vars.spacing.large,
 });
