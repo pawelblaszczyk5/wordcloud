@@ -1,3 +1,14 @@
+import { Board } from '@/components/Board';
+import { ErrorMessage } from '@/components/ErrorMessage';
+import { Loading } from '@/components/Loading';
+import { Result } from '@/components/Result';
+import {
+	isGameStateError,
+	isGameStateInProgress,
+	isGameStateLoading,
+	isGameStateResult,
+	isGameStateSummary,
+} from '@/helpers';
 import { useWorldCloudGame } from '@/hooks';
 
 interface GameProps {
@@ -7,7 +18,19 @@ interface GameProps {
 export const Game = ({ initialNickname }: GameProps) => {
 	const game = useWorldCloudGame(initialNickname);
 
-	console.log(game);
+	if (isGameStateLoading(game)) {
+		return <Loading />;
+	}
 
-	return <h1>Hello {initialNickname}</h1>;
+	if (isGameStateError(game)) {
+		return <ErrorMessage />;
+	}
+
+	if (isGameStateInProgress(game) || isGameStateSummary(game)) {
+		return <Board game={game} />;
+	}
+
+	if (isGameStateResult(game)) {
+		return <Result game={game} />;
+	}
 };
