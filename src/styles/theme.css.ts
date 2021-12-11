@@ -53,7 +53,7 @@ export const vars = createGlobalTheme(':root', {
 
 export const focus = style({
 	':focus-visible': {
-		boxShadow: `0px 0px 1px 3px ${vars.color.accent.cold.main}`,
+		boxShadow: `0px 0px 1px 2px ${vars.color.accent.cold.main}`,
 		outline: 'none',
 	},
 });
