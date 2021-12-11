@@ -48,6 +48,9 @@ const POSSIBLE_QUIZES: Array<WordsFromApi> = [
 
 export const handlers = [
 	rest.get('/api/words', (req, res, ctx) => {
-		return res(ctx.json(POSSIBLE_QUIZES[getRandomNumber(0, POSSIBLE_QUIZES.length - 1)]));
+		return res(
+			ctx.delay(getRandomNumber(200, 800)),
+			ctx.json(POSSIBLE_QUIZES[getRandomNumber(0, POSSIBLE_QUIZES.length - 1)]),
+		);
 	}),
 ];
