@@ -1,7 +1,13 @@
 import { GameState } from '@/model/enums';
 import { GameModel, MappedWord, WordsFromApi } from '@/model';
 import { useEffect, useRef, useState } from 'react';
-import { generateOffset, isGameStateInProgress, mapWordIntoSummary } from '@/helpers';
+import {
+	calculateScore,
+	generateOffset,
+	isGameStateInProgress,
+	isGameStateSummary,
+	mapWordIntoSummary,
+} from '@/helpers';
 
 const createError = () => ({
 	currentState: GameState.ERROR,
@@ -16,33 +22,37 @@ export const useWorldCloudGame = (initialNickname: string) => {
 	});
 
 	const changeGameStateToResult = useRef(() => {
-		const newGame: GameModel<GameState.RESULT> = {
-			currentState: GameState.RESULT,
-			model: {
-				score: 5,
-				nickname,
-			},
-		};
+		setGame((game) => {
+			if (!isGameStateSummary(game)) {
+				return createError();
+			}
 
-		setGame(newGame);
+			return {
+				currentState: GameState.RESULT,
+				model: {
+					nickname,
+					score: calculateScore(game.model.words),
+				},
+			};
+		});
 	}).current;
 
 	const changeGameStateToSummary = useRef((selectedWords: Array<MappedWord['value']>) => {
 		setGame((game) => {
-			if (isGameStateInProgress(game)) {
-				return {
-					currentState: GameState.SUMMARY,
-					model: {
-						words: game.model.words.map((word) =>
-							mapWordIntoSummary(word, selectedWords, game.model.answers),
-						),
-						question: game.model.question,
-						answers: game.model.answers,
-						progress: changeGameStateToResult,
-					},
-				};
+			if (!isGameStateInProgress(game)) {
+				return createError();
 			}
-			return createError();
+			return {
+				currentState: GameState.SUMMARY,
+				model: {
+					words: game.model.words.map((word) =>
+						mapWordIntoSummary(word, selectedWords, game.model.answers),
+					),
+					question: game.model.question,
+					answers: game.model.answers,
+					progress: changeGameStateToResult,
+				},
+			};
 		});
 	}).current;
 
