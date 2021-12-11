@@ -1,11 +1,14 @@
 import { vars } from '@/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 
-export const layout = style({
+export const heading = style({
+	fontSize: vars.fontSize.huge,
+	margin: `${vars.spacing.xsmall} 0`,
+});
+
+export const form = style({
 	display: 'flex',
 	flexDirection: 'column',
-	padding: '25vh 0',
-	alignItems: 'center',
-	height: '100%',
 	gap: vars.spacing.large,
+	alignItems: 'center',
 });

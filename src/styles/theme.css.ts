@@ -48,6 +48,7 @@ export const vars = createGlobalTheme(':root', {
 		large: '1.5rem',
 		xlarge: '1.75rem',
 		xxlarge: '2rem',
+		huge: '3rem',
 	},
 });
 
