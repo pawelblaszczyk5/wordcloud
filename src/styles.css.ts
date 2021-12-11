@@ -10,4 +10,11 @@ globalStyle('body', {
 	color: vars.color.dark.main,
 	padding: vars.spacing.xlarge,
 	lineHeight: '150%',
+	position: 'fixed',
+	height: '100%',
+	width: '100%',
+});
+
+globalStyle('#root', {
+	height: '100%',
 });

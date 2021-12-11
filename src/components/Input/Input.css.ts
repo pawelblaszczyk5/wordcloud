@@ -6,12 +6,12 @@ export const input = style([
 	{
 		padding: `${vars.spacing.medium} ${vars.spacing.medium}`,
 		fontSize: vars.fontSize.xxsmall,
-		color: vars.color.dark.secondary,
+		color: vars.color.dark.main,
 		border: `${vars.color.dark.secondary} 1px solid`,
 		borderRadius: '0.25rem',
 		background: 'transparent',
 		'::placeholder': {
-			color: vars.color.light.secondary,
+			color: vars.color.dark.secondary,
 		},
 	},
 ]);
