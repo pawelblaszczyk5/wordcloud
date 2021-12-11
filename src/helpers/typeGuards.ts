@@ -1,4 +1,4 @@
-import { GameModel } from '@/model';
+import { GameModel, MappedWord, SummaryWord } from '@/model';
 import { GameState } from '@/model/enums';
 
 export const isGameStateInProgress = (
@@ -19,3 +19,6 @@ export const isGameStateError = (game: GameModel<GameState>): game is GameModel<
 export const isGameStateResult = (
 	game: GameModel<GameState>,
 ): game is GameModel<GameState.RESULT> => game.currentState === GameState.RESULT;
+
+export const isSummaryWord = (word: SummaryWord | MappedWord): word is SummaryWord =>
+	'outcome' in word;

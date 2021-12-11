@@ -1,6 +1,12 @@
 import { GameState } from '@/model/enums';
-import { GameModel, Word } from '@/model';
+import { GameModel, MappedWord, WordsFromApi } from '@/model';
 import { useEffect, useRef, useState } from 'react';
+import { generateOffset, isGameStateInProgress } from '@/helpers';
+
+const createError = () => ({
+	currentState: GameState.ERROR,
+	model: null,
+});
 
 export const useWorldCloudGame = (initialNickname: string) => {
 	const nickname = useRef(initialNickname).current;
@@ -21,54 +27,51 @@ export const useWorldCloudGame = (initialNickname: string) => {
 		setGame(newGame);
 	}).current;
 
-	const changeGameStateToSummary = useRef((selectedWords: Array<Word['value']>) => {
-		console.log(selectedWords);
-
-		const newGame: GameModel<GameState.IN_PROGRESS> = {
-			currentState: GameState.IN_PROGRESS,
-			model: {
-				words: [],
-				question: '',
-				progress: changeGameStateToResult,
-			},
-		};
-
-		setGame(newGame);
+	const changeGameStateToSummary = useRef((selectedWords: Array<MappedWord['value']>) => {
+		setGame((game) => {
+			if (isGameStateInProgress(game)) {
+				return {
+					currentState: GameState.SUMMARY,
+					model: {
+						words: [],
+						question: game.model.question,
+						answers: game.model.answers,
+						progress: changeGameStateToResult,
+					},
+				};
+			}
+			return createError();
+		});
 	}).current;
 
-	const changeGameStateToInProgress = useRef((words: Array<Word>) => {
-		console.log(words);
+	const changeGameStateToInProgress = useRef(
+		(allWorlds: Array<string>, goodWords: Array<string>, question: string) => {
+			const newGame: GameModel<GameState.IN_PROGRESS> = {
+				currentState: GameState.IN_PROGRESS,
+				model: {
+					words: allWorlds.map((word) => ({
+						value: word,
+						offset: generateOffset(),
+					})),
+					answers: goodWords,
+					question: question,
+					progress: changeGameStateToSummary,
+				},
+			};
 
-		const newGame: GameModel<GameState.IN_PROGRESS> = {
-			currentState: GameState.IN_PROGRESS,
-			model: {
-				words: words,
-				question: '',
-				progress: changeGameStateToSummary,
-			},
-		};
-
-		setGame(newGame);
-	}).current;
-
-	const changeGameStateToError = useRef(() => {
-		const newGame: GameModel<GameState.ERROR> = {
-			currentState: GameState.ERROR,
-			model: null,
-		};
-
-		setGame(newGame);
-	}).current;
+			setGame(newGame);
+		},
+	).current;
 
 	const fetchWords = useRef(async () => {
 		try {
-			const x = await fetch('/api/words');
+			const { question, all_words, good_words }: WordsFromApi = await (
+				await fetch('/api/words')
+			).json();
 
-			console.log(x);
-
-			changeGameStateToInProgress([]);
+			changeGameStateToInProgress(all_words, good_words, question);
 		} catch {
-			changeGameStateToError();
+			setGame(createError());
 		}
 	});
 

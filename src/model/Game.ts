@@ -14,9 +14,10 @@ type ProgressToGameResultHandler = SharedModel<GameState.SUMMARY>['progress'];
 
 interface SharedModel<State extends GameState.IN_PROGRESS | GameState.SUMMARY> {
 	question: string;
-	words: Array<State extends GameState.IN_PROGRESS ? Word : CheckedWord>;
+	answers: Array<string>;
+	words: Array<State extends GameState.IN_PROGRESS ? MappedWord : SummaryWord>;
 	progress: State extends GameState.IN_PROGRESS
-		? (answers: Array<Word['value']>) => void
+		? (answers: Array<MappedWord['value']>) => void
 		: () => void;
 }
 
@@ -25,12 +26,30 @@ interface ResultModel {
 	nickname: string;
 }
 
-interface Word {
+interface BaseWord {
 	value: string;
 }
-
-interface CheckedWord extends Word {
-	correct: Outcome;
+interface MappedWord extends BaseWord {
+	offset: Offset;
 }
 
-export type { GameModel, ProgressToGameResultHandler, ProgressToGameSummaryHandler, Word };
+interface Offset {
+	top: string;
+	left: string;
+	bottom: string;
+	right: string;
+}
+
+interface SummaryWord extends MappedWord {
+	outcome: Outcome;
+}
+
+export type {
+	GameModel,
+	ProgressToGameResultHandler,
+	ProgressToGameSummaryHandler,
+	MappedWord,
+	BaseWord,
+	SummaryWord,
+	Offset,
+};

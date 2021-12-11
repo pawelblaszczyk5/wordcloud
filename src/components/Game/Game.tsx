@@ -33,4 +33,6 @@ export const Game = ({ initialNickname }: GameProps) => {
 	if (isGameStateResult(game)) {
 		return <Result game={game} />;
 	}
+
+	return null;
 };

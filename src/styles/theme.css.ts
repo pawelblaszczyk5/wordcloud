@@ -3,8 +3,8 @@ import { createGlobalTheme, style } from '@vanilla-extract/css';
 export const vars = createGlobalTheme(':root', {
 	color: {
 		dark: {
-			main: '#2c3e50',
-			secondary: '#34495e',
+			main: '#2d3436',
+			secondary: '#636e72',
 		},
 		light: {
 			main: '#f5f6fa',
@@ -57,4 +57,14 @@ export const focus = style({
 		boxShadow: `0px 0px 1px 2px ${vars.color.accent.cold.main}`,
 		outline: 'none',
 	},
+});
+
+export const visuallyHidden = style({
+	clip: 'rect(0 0 0 0)',
+	clipPath: 'inset(50%)',
+	height: '1px',
+	overflow: 'hidden',
+	position: 'absolute',
+	whiteSpace: 'nowrap',
+	width: '1px',
 });
