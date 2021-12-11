@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './App';
-import { setupMockBackend } from './mocks/worker';
+import 'modern-normalize';
+import { App } from '@/App';
+import { setupMockBackend } from '@/mocks/worker';
 
 await setupMockBackend();
 
