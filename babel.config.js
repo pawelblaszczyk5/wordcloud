@@ -22,7 +22,7 @@ module.exports = (api) => {
 			},
 		]);
 
-		config.plugins.push('@vanilla-extract/babel-plugin');
+		config.plugins.push('@vanilla-extract/babel-plugin', 'babel-plugin-transform-vite-meta-env');
 	}
 	return config;
 };

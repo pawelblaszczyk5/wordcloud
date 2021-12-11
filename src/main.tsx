@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from '@/App';
-import { setupMockBackend } from '@/mocks/worker';
+import { setupMockBackend } from '@/mocks';
 
 import '@/styles.css';
 import 'modern-normalize';

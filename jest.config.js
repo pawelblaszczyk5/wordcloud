@@ -7,4 +7,8 @@ module.exports = {
 	moduleNameMapper: {
 		'@/(.*)': '<rootDir>/src/$1',
 	},
+	transform: {
+		'.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
+		'\\.[jt]sx?$': 'babel-jest',
+	},
 };
