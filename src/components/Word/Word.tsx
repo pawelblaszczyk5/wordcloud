@@ -1,6 +1,14 @@
-import { label } from '@/components/Word/Word.css';
+import {
+	correctOutcome,
+	correctWord,
+	incorrectOutcome,
+	incorrectWord,
+	outcome,
+	wordText,
+} from '@/components/Word/Word.css';
 import { isSummaryWord } from '@/helpers';
 import { MappedWord, SummaryWord } from '@/model';
+import { Outcome } from '@/model/enums';
 import { visuallyHidden } from '@/styles/theme.css';
 import { useMemo } from 'react';
 
@@ -20,11 +28,29 @@ export const Word = ({ word }: WordProps) => {
 	);
 
 	if (isSummaryWord(word)) {
-		return <p style={styles}>{word.value}</p>;
+		const shouldShowOutcome =
+			word.outcome === Outcome.CORRECTLY_SELECTED || word.outcome === Outcome.INCORRECTLY_SELECTED;
+		const isBadOutcome = word.outcome === Outcome.INCORRECTLY_SELECTED;
+
+		return (
+			<p
+				className={`${wordText} ${
+					!shouldShowOutcome ? '' : isBadOutcome ? incorrectWord : correctWord
+				}`}
+				style={styles}
+			>
+				{word.value}
+				{shouldShowOutcome && (
+					<span className={`${outcome} ${isBadOutcome ? incorrectOutcome : correctOutcome}`}>
+						{isBadOutcome ? 'BAD' : 'GOOD'}
+					</span>
+				)}
+			</p>
+		);
 	}
 
 	return (
-		<label className={label} style={styles}>
+		<label className={wordText} style={styles}>
 			<input className={visuallyHidden} type="checkbox" name="selectedWords" value={word.value} />
 			<span>{word.value}</span>
 		</label>

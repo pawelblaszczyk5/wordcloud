@@ -1,7 +1,7 @@
 import { board, form } from '@/components/Board/Board.css';
 import { Button } from '@/components/Button';
 import { Word } from '@/components/Word';
-import { isGameStateInProgress } from '@/helpers';
+import { isGameStateInProgress, isGameStateSummary } from '@/helpers';
 import { GameModel } from '@/model';
 import { GameState } from '@/model/enums';
 import { useCallback, useRef } from 'react';
@@ -21,6 +21,8 @@ export const Board = ({ game }: BoardProps) => {
 				const formData = new FormData(formRef.current);
 
 				game.model.progress(formData.getAll('selectedWords') as Array<string>);
+			} else if (isGameStateSummary(game)) {
+				game.model.progress();
 			}
 		},
 		[game],

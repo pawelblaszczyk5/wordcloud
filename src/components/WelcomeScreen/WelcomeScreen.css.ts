@@ -3,7 +3,6 @@ import { style } from '@vanilla-extract/css';
 
 export const heading = style({
 	fontSize: vars.fontSize.huge,
-	margin: `${vars.spacing.xsmall} 0`,
 });
 
 export const form = style({

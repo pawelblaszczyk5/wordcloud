@@ -4,7 +4,7 @@ import { style } from '@vanilla-extract/css';
 export const layout = style({
 	display: 'flex',
 	flexDirection: 'column',
-	padding: '25vh 0',
+	justifyContent: 'center',
 	alignItems: 'center',
 	height: '100%',
 	gap: vars.spacing.large,

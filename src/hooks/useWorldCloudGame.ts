@@ -1,7 +1,7 @@
 import { GameState } from '@/model/enums';
 import { GameModel, MappedWord, WordsFromApi } from '@/model';
 import { useEffect, useRef, useState } from 'react';
-import { generateOffset, isGameStateInProgress } from '@/helpers';
+import { generateOffset, isGameStateInProgress, mapWordIntoSummary } from '@/helpers';
 
 const createError = () => ({
 	currentState: GameState.ERROR,
@@ -33,7 +33,9 @@ export const useWorldCloudGame = (initialNickname: string) => {
 				return {
 					currentState: GameState.SUMMARY,
 					model: {
-						words: [],
+						words: game.model.words.map((word) =>
+							mapWordIntoSummary(word, selectedWords, game.model.answers),
+						),
 						question: game.model.question,
 						answers: game.model.answers,
 						progress: changeGameStateToResult,

@@ -13,7 +13,7 @@ globalStyle('body', {
 	background: vars.color.light.main,
 	color: vars.color.dark.main,
 	padding: vars.spacing.xlarge,
-	lineHeight: '150%',
+	lineHeight: 1.5,
 	width: '100%',
 	height: '100%',
 });
