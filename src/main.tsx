@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'modern-normalize';
 import { App } from '@/App';
 import { setupMockBackend } from '@/mocks/worker';
+
 import '@/styles.css';
+import 'modern-normalize';
 
-await setupMockBackend();
+const renderAfterMockBackendSetup = async () => {
+	await setupMockBackend();
 
-ReactDOM.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>,
-	document.getElementById('root'),
-);
+	ReactDOM.render(
+		<React.StrictMode>
+			<App />
+		</React.StrictMode>,
+		document.getElementById('root'),
+	);
+};
+
+renderAfterMockBackendSetup();
