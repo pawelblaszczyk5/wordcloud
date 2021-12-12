@@ -30,6 +30,7 @@ export const WelcomeScreen = () => {
 					value={nickname}
 					onChange={handleInputChange}
 					placeholder="Enter your nickname…"
+					aria-label="Enter your nickname…"
 					required
 				/>
 				<Button>play</Button>

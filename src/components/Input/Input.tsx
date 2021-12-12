@@ -5,6 +5,7 @@ interface InputProps {
 	placeholder?: string;
 	onChange?: React.ChangeEventHandler<HTMLInputElement>;
 	required?: boolean;
+	'aria-label'?: string;
 }
 
 export const Input = (props: InputProps) => <input className={input} {...props} />;
