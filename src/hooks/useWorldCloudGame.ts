@@ -77,9 +77,12 @@ export const useWorldCloudGame = (initialNickname: string) => {
 
 	const fetchWords = useRef(async () => {
 		try {
-			const { question, all_words, good_words }: WordsFromApi = await (
-				await fetch('/api/words')
-			).json();
+			const response = await fetch('/api/words');
+
+			if (!response.ok) {
+				setGame(createError());
+			}
+			const { question, all_words, good_words }: WordsFromApi = await response.json();
 
 			changeGameStateToInProgress(all_words, good_words, question);
 		} catch {
