@@ -1,6 +1,6 @@
-# Worldcloud Game
+# Wordcloud Game
 
-Simple world cloud game built with React. It uses mocked backend via MSW - Mock Service Worker.
+Simple Word Cloud game built with React. It uses mocked backend via MSW - Mock Service Worker.
 
 ## Live version
 
