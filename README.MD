@@ -4,7 +4,7 @@ Simple world cloud game built with React. It uses mocked backend via MSW - Mock 
 
 ## Live version
 
-You can check it out online right now [here](https://61b4f3c9bd0f937b182d7756--jolly-banach-0ec84c.netlify.app/)!
+You can check it out online right now [here](https://jolly-banach-0ec84c.netlify.app/)!
 
 ## Running locally
 
