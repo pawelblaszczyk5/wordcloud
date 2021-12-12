@@ -47,7 +47,7 @@ const POSSIBLE_QUIZES: Array<WordsFromApi> = [
 ];
 
 export const handlers = [
-	rest.get('/api/words', (req, res, ctx) => {
+	rest.get('/api/words', (_, res, ctx) => {
 		if (import.meta.env.NODE_ENV === 'test') {
 			return res(ctx.json(POSSIBLE_QUIZES[1]));
 		}

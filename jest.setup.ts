@@ -1,9 +1,6 @@
 import '@testing-library/jest-dom';
-import { handlers } from '@/mocks';
-import { setupServer } from 'msw/node';
+import { server } from '@/mocks/testServer';
 import 'whatwg-fetch';
-
-const server = setupServer(...handlers);
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
