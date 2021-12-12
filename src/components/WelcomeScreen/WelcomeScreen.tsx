@@ -15,7 +15,7 @@ export const WelcomeScreen = () => {
 
 	const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = useCallback((e) => {
 		e.preventDefault();
-		setGameInProgress(true);
+		if (e.currentTarget.checkValidity()) setGameInProgress(true);
 	}, []);
 
 	if (gameInProgress) {
