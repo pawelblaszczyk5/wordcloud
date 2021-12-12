@@ -24,6 +24,7 @@ interface SharedModel<State extends GameState.IN_PROGRESS | GameState.SUMMARY> {
 interface ResultModel {
 	score: number;
 	nickname: string;
+	progress: () => void;
 }
 
 interface BaseWord {

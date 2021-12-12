@@ -14,12 +14,14 @@ const createError = () => ({
 	model: null,
 });
 
+const createLoading = () => ({
+	currentState: GameState.LOADING,
+	model: null,
+});
+
 export const useWorldCloudGame = (initialNickname: string) => {
 	const nickname = useRef(initialNickname).current;
-	const [game, setGame] = useState<GameModel<GameState>>({
-		currentState: GameState.LOADING,
-		model: null,
-	});
+	const [game, setGame] = useState<GameModel<GameState>>(() => createLoading());
 
 	const changeGameStateToResult = useRef(() => {
 		setGame((game) => {
@@ -32,6 +34,10 @@ export const useWorldCloudGame = (initialNickname: string) => {
 				model: {
 					nickname,
 					score: calculateScore(game.model.words),
+					progress: () => {
+						setGame(createLoading());
+						fetchWords.current();
+					},
 				},
 			};
 		});

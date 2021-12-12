@@ -1,3 +1,4 @@
+import { Button } from '@/components/Button';
 import { heading, paragraph } from '@/components/Result/Result.css';
 import { pluralize } from '@/helpers/pluralize';
 import { GameModel } from '@/model';
@@ -9,7 +10,7 @@ interface ResultProps {
 
 export const Result = ({
 	game: {
-		model: { nickname, score },
+		model: { nickname, score, progress },
 	},
 }: ResultProps) => (
 	<>
@@ -18,5 +19,6 @@ export const Result = ({
 			Your score:
 		</h1>
 		<p className={paragraph}>{pluralize(score, 'point', 'points')}</p>
+		<Button onClick={progress}>play again</Button>
 	</>
 );
