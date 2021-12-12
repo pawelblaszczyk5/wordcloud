@@ -8,4 +8,5 @@ export const layout = style({
 	alignItems: 'center',
 	minHeight: '100vh',
 	gap: vars.spacing.large,
+	padding: vars.spacing.xlarge,
 });
